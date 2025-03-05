@@ -1,0 +1,48 @@
+﻿@model IEnumerable<MedianProgram.Models.MedianModel>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="container mt-5">
+    <h2>Medianowe Liczby Pierwsze</h2>
+
+    @if (TempData["Error"] != null)
+    {
+        <div class="alert alert-danger">@TempData["Error"]</div>
+    }
+
+    <form method="post" asp-action="Calculate">
+        <div class="input-group mb-3">
+            <input type="number" name="inputNumber" class="form-control" required placeholder="Podaj liczbę" min="2">
+            <button class="btn btn-primary" type="submit">Oblicz</button>
+        </div>
+    </form>
+
+    
+        <h4>Ostatnie obliczenia</h4>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Liczba</th>
+                    <th>Mediana</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var calc in Model)
+                {
+                    <tr>
+                        <td>@calc.Id</td>
+                        <td>@calc.InputNumber</td>
+                        <td>@calc.MedianPrimes</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        <form method="post" asp-action="ClearHistory">
+            <button class="btn btn-danger">Wyczyść historię</button>
+        </form>
+    
+</div>
